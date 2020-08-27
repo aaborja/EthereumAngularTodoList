@@ -6,6 +6,14 @@
   width: 50%;
 }
 
+.width-75 {
+  width: 75%;
+}
+
+.width-90 {
+  width: 90%;
+}
+
 .mb-2 {
   margin-bottom: 2px;
 }

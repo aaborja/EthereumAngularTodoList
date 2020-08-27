@@ -9,14 +9,14 @@ contract Todo {
 
     mapping(uint256 => Task) public tasks;
 
-    uint256 public id;
+    uint256 public idCount;
 
     constructor() public {
-        id = 0;
+        idCount = 0;
     }
 
     function addTask(string memory _task) public {
-        id++;
-        tasks[id] = Task(id, _task);
+        idCount++;
+        tasks[idCount] = Task(idCount, _task);
     }
 }

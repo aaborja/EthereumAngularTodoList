@@ -1,23 +1,57 @@
 <mat-toolbar color="primary">
   <span>Ethereum Todo Lists</span>
+  <span class="spacer"></span>
+  <span>{{ accountNumber }}</span>
 </mat-toolbar>
 
 <div fxLayout="column" fxLayoutAlign="space-between center">
   <div class="width-90">
     <div fxLayout="row" class="m-10">
-      <mat-form-field class="max-width">
-        <mat-label>Add Task</mat-label>
-        <input matInput placeholder="Your Task ..." />
-      </mat-form-field>
+      <form
+        [formGroup]="taskForm"
+        class="display-contents"
+        (ngSubmit)="addTask()"
+      >
+        <mat-form-field class="max-width">
+          <mat-label>Add Task</mat-label>
+          <input matInput placeholder="Your Task ..." formControlName="task" />
+          <mat-error>Task field is required</mat-error>
+        </mat-form-field>
 
-      <button class="m-10" mat-raised-button color="primary">Save</button>
+        <button
+          class="m-10"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!taskForm.valid"
+        >
+          Save
+        </button>
+      </form>
     </div>
 
     <mat-divider></mat-divider>
 
-    <mat-card class="m-10">Simple card</mat-card>
-    <mat-card class="m-10">Simple card</mat-card>
-    <mat-card class="m-10">Simple card</mat-card>
-    <mat-card class="m-10">Simple card</mat-card>
+    <mat-card *ngFor="let task of tasks" class="m-10">
+      <mat-card-header>
+        <mat-card-title>
+          <button
+            mat-button
+            class="close"
+            color="warn"
+            (click)="deleteTask(task.id)"
+          >
+            X
+          </button>
+          {{ task.task }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ task.dateTimeCreated }}</mat-card-subtitle>
+        <span class="spacer"></span>
+        <mat-slide-toggle
+          [(ngModel)]="task.done"
+          (change)="onChange(task.id, $event.checked)"
+        ></mat-slide-toggle>
+      </mat-card-header>
+    </mat-card>
   </div>
 </div>

@@ -73,6 +73,20 @@ contract("Todo", (accounts) => {
       });
   });
 
+  it("Delete task", () => {
+    return Todo.deployed()
+      .then((instance) => {
+        const id = 1;
+        return todoInstance.deleteTask(id);
+      })
+      .then(() => {
+        return todoInstance.tasks(1);
+      })
+      .then((task) => {
+        equal(task[3], false, `Task done is ${false}`);
+      });
+  });
+
   it("Invalid task id", () => {
     return Todo.deployed()
       .then((instance) => {
